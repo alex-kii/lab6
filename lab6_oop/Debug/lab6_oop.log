@@ -1,0 +1,7 @@
+﻿  Source.cpp
+C:\Users\zifof\source\repos\oop_lab\lab6_oop\lab6_oop\Deque1.h(152,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\zifof\source\repos\oop_lab\lab6_oop\lab6_oop\Source.cpp(33): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::ostream &operator <<<int>(std::ostream &,const Deque1<int> &)"
+C:\Users\zifof\source\repos\oop_lab\lab6_oop\lab6_oop\Deque2.h(152,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\zifof\source\repos\oop_lab\lab6_oop\lab6_oop\Source.cpp(44): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::ostream &operator <<<int>(std::ostream &,const Deque2<int> &)"
+C:\Users\zifof\source\repos\oop_lab\lab6_oop\lab6_oop\List2.h(297): warning C4715: List2<int>::sel_el: значение возвращается не при всех путях выполнения
+  lab6_oop.vcxproj -> C:\Users\zifof\source\repos\oop_lab\lab6_oop\Debug\lab6_oop.exe

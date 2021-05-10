@@ -28,13 +28,13 @@ public:
 
 	void push_front(T data); // добавить элемент в начало
 
-	void insert(T data, int index); // добавить элемент в указанное место
+	void insert(T data, const int index); // добавить элемент в указанное место
 
 	void push_back(T data); // добавить в элемент в конец
 
 	T pop_front(); // удалить элемент из начала
 
-	void removeAT(int index); // удалить указанный элемент 
+	void removeAT(const int index); // удалить указанный элемент 
 
 	T pop_back(); // удалить элемент из конца
 
@@ -79,7 +79,7 @@ void List2<T>::push_front(T data) // добавить элемент в начало
 }
 
 template<typename T> 
-void List2<T>::insert(T data, int index) // добавить элемент в указанное место
+void List2<T>::insert(T data, const int index) // добавить элемент в указанное место
 {
 	int indexmax = size - 1, indexmin = 0, resmax = size - 1, resmin = 0; // крайние возможные индексы данного массива
 	resmax -= index; // мин. кол-во шагов, прежде чем добрать до хранилища из хвоста
@@ -179,7 +179,7 @@ T List2<T>::pop_front() // удалить элемент из начала
 }
 
 template<typename T>  
-void List2<T>::removeAT(int index) // удалить указанный элемент 
+void List2<T>::removeAT(const int index) // удалить указанный элемент 
 {
 	int indexmax = size - 1, indexmin = 0, resmax = size - 1, resmin = 0; // крайние индексы данного массива
 	resmax -= index;

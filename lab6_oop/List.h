@@ -27,13 +27,13 @@ public:
 
 	void push_front(T data); // добавл€ет элемент в начало
 
-	void insert(T data, int index); // добавл€ет элемент в указываемое место
+	void insert(T data, const int index); // добавл€ет элемент в указываемое место
 
 	void push_back(T data); //добавл€ем элемент в конец
 
 	T pop_front(); // удал€ет самый первый элемент
 
-	T removeAT(int index); // удал€ет элемент в указываемом месте
+	T removeAT(const int index); // удал€ет элемент в указываемом месте
 
 	T pop_back(); // удал€ет последний элемент
 
@@ -78,7 +78,7 @@ void List<T>::push_front(T data)
 }
 
 template<typename T>
-void List<T>::insert(T data, int index)
+void List<T>::insert(T data, const int index)
 {
 	if (index > this->size - 1) // ≈сли указанный индекс находитс€ вне границ списка
 	{
@@ -136,7 +136,7 @@ T List<T>::pop_front()
 }
 
 template<typename T>
-T List<T>::removeAT(int index)
+T List<T>::removeAT(const int index)
 {
 	if (index > this->size - 1) // ≈сли указанный индекс находитс€ вне границ списка
 	{

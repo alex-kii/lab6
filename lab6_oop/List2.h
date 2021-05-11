@@ -24,13 +24,15 @@ public:
 
 	List2(); // консруктор
 
+	List2(const List2& other);
+
+	List2(const List2&& other);
+
 	~List2(); // деструктор 
 
-	void push_front(T data); // добавить элемент в начало
+	void push_front(const T& data); // добавить элемент в начало
 
-	void insert(T data, const int index); // добавить элемент в указанное место
-
-	void push_back(T data); // добавить в элемент в конец
+	void push_back(const T& data); // добавить в элемент в конец
 
 	T pop_front(); // удалить элемент из начала
 
@@ -40,9 +42,13 @@ public:
 
 	void clear(); // удалить все элементы
 
-	int Getsize() { return size; } // кол-во хранилищ 
+	int getsize() const; // кол-во хранилищ 
 
-	T sel_el(const int index) const; // возвращает элемент по индексу
+	T& sel_el(const int index) const; // возвращает элемент по индексу
+
+	List2& operator=(const List2& other);
+
+	List2& operator=(List2&& other);
 
 };
 
@@ -55,13 +61,30 @@ List2<T>::List2() : size(0), head(nullptr), tail(nullptr) // конструктор
 { }
 
 template<typename T>
-List2<T>::~List2() 
+List2<T>::List2(const List2& other)
+{
+	for (int i = 0; i < other.size; i++)
+	{
+		this->push_back(other.sel_el(i));
+	}
+}
+
+template<typename T>
+List2<T>::List2(const List2&& other) : size(other.size), head(other.head), tail(other.tail)
+{
+	other.size = NULL;
+	other.head = nullptr;
+	other.tail = nullptr;
+}
+
+template<typename T>
+List2<T>::~List2()
 {
 	clear(); // удаление всех хранилищ
 }
 
-template<typename T> 
-void List2<T>::push_front(T data) // добавить элемент в начало
+template<typename T>
+void List2<T>::push_front(const T& data) // добавить элемент в начало
 {
 	if (size == 0)
 	{
@@ -78,64 +101,8 @@ void List2<T>::push_front(T data) // добавить элемент в начало
 	size++;
 }
 
-template<typename T> 
-void List2<T>::insert(T data, const int index) // добавить элемент в указанное место
-{
-	int indexmax = size - 1, indexmin = 0, resmax = size - 1, resmin = 0; // крайние возможные индексы данного массива
-	resmax -= index; // мин. кол-во шагов, прежде чем добрать до хранилища из хвоста
-	resmin += index; // мин. кол-во шагов, прежде чем добрать до хранилища из головы
-
-	if (index == indexmin || index == indexmax)
-	{
-		if (index == indexmin)
-		{
-			push_front(data);
-		} // если индекс первого хранилиша, выполняем метод добавить в начало
-		else
-		{
-			push_back(data);
-		} // если индекс последнего хранилиша, выполняем метод добавить в конце
-	}
-	else if (resmin < resmax || resmin == resmax)
-	{
-		int counter = 0; // номер хранилище, в котором находимся
-		Node* current = this->head;
-		while (current != nullptr)
-		{
-			if (counter == index)
-			{
-				current = new Node<T>(data, current, current->pBack);
-				(current->pNext)->pBack = current; // старое хранлище в пред. указетеле указываем на новое хранилище
-				(current->pBack)->pNext = current; 
-				break;
-			}
-			current = current->pNext;
-			counter++;
-		}
-		size++;
-	}
-	else if (resmin > resmax)
-	{
-		int counter = size - 1; // номер хранилища, в котором находимся
-		Node* current = this->tail;
-		while (current != nullptr)
-		{
-			if (counter == index)
-			{
-				current = new Node<T>(data, current, current->pBack);
-				(current->pNext)->pBack = current;
-				(current->pBack)->pNext = current;
-				break;
-			}
-			current = current->pBack;
-			counter--;
-		}
-		size++;
-	}
-}
-
-template<typename T> 
-void List2<T>::push_back(T data) // добавить в элемент в конец
+template<typename T>
+void List2<T>::push_back(const T& data) // добавить в элемент в конец
 {
 	if (size > 1) // если более 1 хранилища
 	{
@@ -157,7 +124,7 @@ void List2<T>::push_back(T data) // добавить в элемент в конец
 	size++;
 }
 
-template<typename T> 
+template<typename T>
 T List2<T>::pop_front() // удалить элемент из начала
 {
 	Node* current = head;
@@ -178,7 +145,7 @@ T List2<T>::pop_front() // удалить элемент из начала
 	return data;
 }
 
-template<typename T>  
+template<typename T>
 void List2<T>::removeAT(const int index) // удалить указанный элемент 
 {
 	int indexmax = size - 1, indexmin = 0, resmax = size - 1, resmin = 0; // крайние индексы данного массива
@@ -250,7 +217,7 @@ T List2<T>::pop_back() // удалить элемент из конца
 	return data;
 }
 
-template<typename T> 
+template<typename T>
 void List2<T>::clear() // удалить все элементы
 {
 	while (size)
@@ -260,8 +227,20 @@ void List2<T>::clear() // удалить все элементы
 }
 
 template<typename T>
-T List2<T>::sel_el(const int index) const
+int List2<T>::getsize() const
 {
+	return size;
+}
+
+template<typename T>
+T& List2<T>::sel_el(const int index) const
+{
+	if (index > this->size - 1) // Если указанный индекс находится вне границ списка
+	{
+		std::cout << "Указанный индекс находится вне границ! Аварийное заверешение программы!" << std::endl;
+		abort();
+	}
+
 	int indexmax = size - 1, indexmin = 0; // крайние индексы данного массива
 	indexmax -= index; // мин. кол-во шагов, прежде чем добрать до хранилища из хвоста
 	indexmin += index; // мин. кол-во шагов, прежде чем добрать до хранилища из головы
@@ -294,4 +273,43 @@ T List2<T>::sel_el(const int index) const
 			counter--;
 		}
 	}
+}
+
+template<typename T>
+List2<T>& List2<T>::operator=(const List2& other)
+{
+	size = 0;
+	head = nullptr;
+	tail = nullptr;
+
+	if (this == &other)
+	{
+		return *this;
+	}
+
+	clear();
+
+	for (int i = 0; i < other.size; i++)
+	{
+		this->push_back(other.sel_el(i));
+	}
+}
+
+template<typename T>
+List2<T>& List2<T>::operator=(List2&& other)
+{
+	if (this == &other)
+	{
+		return *this;
+	}
+
+	clear();
+
+	size = other.size;
+	this->head = other.head;
+	this->tail = other.tail;
+
+	other.size = NULL;
+	other.head = nullptr;
+	other.tail = nullptr;
 }

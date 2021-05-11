@@ -142,7 +142,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Deque1.h" />
+    <ClInclude Include="Deque.h" />
     <ClInclude Include="Deque2.h" />
     <ClInclude Include="DequeBase.h" />
     <ClInclude Include="List.h" />

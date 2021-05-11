@@ -1,6 +1,6 @@
 #include <iostream>
 #include "DequeBase.h"
-#include "Deque1.h"
+#include "Deque.h"
 #include "Deque2.h"
 
 using namespace std;
@@ -23,7 +23,7 @@ int main()
 {
 	setlocale(LC_ALL, "rus");
 
-	Deque1<int> d1;
+	Deque<int> d1;
 	d1.PushFront(4);
 	d1.PushBack(1);
 	d1.PushFront(11);

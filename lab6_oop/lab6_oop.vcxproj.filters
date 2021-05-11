@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Deque1.h">
+    <ClInclude Include="Deque.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Deque2.h">
